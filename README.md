@@ -12,4 +12,6 @@ I also had a bit of throuble with the directory. At first I had my asset folder
 outside my public one, and i couldnt access my photos and music.
 
 After i got my assets to work, having the objects to have photos and music on click 
-was muh faster and esier than i expected.
+was much faster and esier than i expected.
+
+https://github.com/emilyyue-2000/assignment2_IMD3901
