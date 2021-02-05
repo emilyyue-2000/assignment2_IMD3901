@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Assignment 2 - A-Frame</title>
+      <meta name="description" content="Hello, WebVR! - A-Frame">
+      <script src="/js/aframe.min.js"></script>
+      <script src="/js/aframe-environment-component.min.js"></script>
+      <script src="https://unpkg.com/aframe-play-sound-on-event@1.0.2/dist/aframe-play-sound-on-event.min.js"></script>
+      <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+
+    </head>
+    <body>
+      <a-scene>
+        <a-assets timeout="10000">
+
+          <!--Assets for the index-->
+          <audio id="background_music" src="/assets/ambientMusic.mp3" preload="auto" crossorigin="anonymous"></audio>
+          <audio id="dog" src="/assets/dog3.mp3" preload="auto" crossorigin="anonymous"></audio>
+          <audio id="cat" src="/assets/cat02.wav" preload="auto" crossorigin="anonymous"></audio>
+          <audio id="bird" src="/assets/birdchirp.wav" preload="auto" crossorigin="anonymous"></audio>
+          <img id="dog_cube" src="/assets/dog_image.jpg" crossorigin="anonymous">
+          <img id="cat_cube" src="/assets/catimage.jpg" crossorigin="anonymous">
+          <img id="bird_cube" src="/assets/birdLoud.jpg" crossorigin="anonymous">
+          <img id="cat_text" src="/assets/catText.jpg" crossorigin="anonymous">
+        </a-assets>
+
+        <!--background music-->
+        <a-entity sound="src:#background_music; autoplay:true;"></a-entity>
+
+        <!-- cube that rotates when clicked -->
+        <a-entity id="dogCube" position="3 0.5 -4" scale="1 1 1"
+        sound = "src:#dog" play-sound-on-event = "mode:toggle-stop; event: click"
+                  geometry="primitive:box; width:1.0; height:1.0; depth:1.0" 
+                  material="src:#dog_cube"
+                  event-set__down="_event: mousedown; rotation: 45 45 45"
+                  event-set__up="_event: mouseup; rotation: 0 0 0"
+                  event-set__leave="_event: mouseleave; rotation: 0 0 0"
+                  >                  
+        </a-entity>
+        <!--scalable shpere of cat that makes noises when clicked-->
+        <a-entity id="catCube" position="0 1.2 -4" scale="1 1 1"
+                  radius = "0.6"
+                  sound = "src:#cat" play-sound-on-event = "mode:toggle-stop; event: click"
+                  geometry="primitive:sphere"  
+                  material="src:#cat_cube"
+                  rotation= "0 225 0"
+                  event-set__down="_event: mousedown; scale: 1.2 1.2 1.2"
+                  event-set__up="_event: mouseup; scale: 1 1 1"
+                  event-set__leave="_event: mouseleave; scale: 1 1 1">        
+        </a-entity>
+        <!-- box that displays text when hovered over-->
+        <a-entity geometry="primitive:box; width:0.4; height:0.4; depth:0.4;"
+                  material="color:red;" position="0 0.25 -3"
+                  event-set__enter="_event: mouseenter; _target: #catText; visible: true"
+                  event-set__leave="_event: mouseleave; _target: #catText; visible: false">
+                  <a-entity id = "catText" text="value:This is a cat;
+                          color:black; font:roboto; width:1.25; baseline:top; wrapCount:18;" position="0.5 0.5 0.4" ></a-entity>
+        </a-entity>
+
+        <!--box that plays bord noises-->
+        <a-entity id="birdCube" position="-3 0.5 -4" scale="1 1 1"
+        sound = "src:#bird" play-sound-on-event = "mode:toggle-stop; event: click"
+                  geometry="primitive:box; width:1.0; height:1.0; depth:1.0" 
+                  material="src:#bird_cube">        
+        </a-entity>
+
+        <!-- cusor(pink :))-->
+        <a-camera position = "0 1 0">
+          <a-cursor color = "rgb(255, 100, 100)"></a-cursor>
+        </a-camera>
+
+      <a-entity environment="preset:forest"></a-entity>
+      </a-scene>
+    </body>
+</html>
